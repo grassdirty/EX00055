@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFE OF BUDDHA - P1.MP3</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Tạo background vũ trụ bằng gradient */
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng các vì sao lấp lánh */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 200px 190px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 250px 50px, #eee, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 300px 300px;
+            animation: twinkling 4s infinite;
+            z-index: 0;
+        }
+
+        @keyframes twinkling {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* Giao diện khung trình phát nhạc (Glassmorphism) */
+        .player-container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            width: 320px;
+        }
+
+        /* Tên bài hát */
+        .song-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            letter-spacing: 3px;
+        }
+
+        /* Hiệu ứng đĩa than */
+        .disc {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(45deg, #111, #333);
+            border-radius: 50%;
+            margin: 0 auto 25px auto;
+            border: 4px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+            animation: spin 4s linear infinite;
+            animation-play-state: paused; /* Mặc định dừng xoay */
+        }
+
+        .disc::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #1b2735; /* Lõi đĩa tiệp với màu nền */
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .disc.playing {
+            animation-play-state: running; /* Xoay khi đang phát nhạc */
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Khung trình điều khiển âm thanh */
+        audio {
+            width: 100%;
+            outline: none;
+            border-radius: 30px;
+        }
+        
+        audio::-webkit-media-controls-panel {
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+</head>
+<body>
+    <!-- Lớp nền sao lấp lánh -->
+    <div class="stars"></div>
+    
+    <!-- Khung phát nhạc -->
+    <div class="player-container">
+        <!-- Đĩa nhạc -->
+        <div class="disc" id="disc"></div>
+        
+        <!-- Tên bài nhạc -->
+        <div class="song-title">LIFE OF BUDDHA - P1.MP3</div>
+
+        <!-- Trình phát nhạc -->
+        <audio id="audioPlayer" controls>
+            <!-- Đường dẫn file a.mp3 -->
+            <source src="LIFE OF BUDDHA - P1.MP3" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ phát nhạc.
+        </audio>
+    </div>
+
+    <!-- Script điều khiển đĩa than -->
+    <script>
+        const audio = document.getElementById('audioPlayer');
+        const disc = document.getElementById('disc');
+
+        // Khi nhạc bắt đầu phát -> Xoay đĩa
+        audio.addEventListener('play', () => {
+            disc.classList.add('playing');
+        });
+
+        // Khi nhạc dừng/tạm dừng -> Dừng đĩa
+        audio.addEventListener('pause', () => {
+            disc.classList.remove('playing');
+        });
+    </script>
+</body>
+</html>
